@@ -1,0 +1,11 @@
+## 1.0.4
+* added example inside the package.
+## 1.0.3
+* updated example in readme file.
+## 1.0.2
+* updated example in readme file.
+## 1.0.1
+* updated example in readme file.
+## 1.0.0
+
+* initial release.
