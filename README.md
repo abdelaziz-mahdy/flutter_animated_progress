@@ -8,5 +8,5 @@ example can be followed to to achieve same result
 
 # example
 
-[example](https://github.com/zezo357/flutter_animated_progress_example)
+[example](https://github.com/zezo357/flutter_animated_progress/tree/master/example)
 
