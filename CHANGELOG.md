@@ -1,3 +1,5 @@
+## 1.0.5
+* updated example link.
 ## 1.0.4
 * added example inside the package.
 ## 1.0.3
