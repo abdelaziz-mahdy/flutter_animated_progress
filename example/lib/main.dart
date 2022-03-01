@@ -26,10 +26,10 @@ class _MyAppState extends State<MyApp> {
     changeValue();
   }
 
-changeValue() async {
-    await Future.delayed(const Duration(seconds: 1), () => value.value=0.5);
-    await Future.delayed(const Duration(seconds: 1), () => value.value=1);
-}
+  changeValue() async {
+    await Future.delayed(const Duration(seconds: 1), () => value.value = 0.5);
+    await Future.delayed(const Duration(seconds: 1), () => value.value = 1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +38,7 @@ changeValue() async {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: RxBuilder(
-        (__) {
+        body: RxBuilder((__) {
           return Column(
             children: [
               Expanded(
@@ -66,8 +65,7 @@ changeValue() async {
               ),
             ],
           );
-        }
-        ),
+        }),
       ),
     );
   }

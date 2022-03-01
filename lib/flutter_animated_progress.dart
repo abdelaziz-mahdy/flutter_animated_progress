@@ -11,18 +11,16 @@ class AnimatedLinearProgressIndicator extends ProgressIndicator {
     this.minHeight,
     String? semanticsLabel,
     String? semanticsValue,
-    this.animationDuration=const Duration(milliseconds: 500),
-  }) : assert(minHeight == null || minHeight > 0),
+    this.animationDuration = const Duration(milliseconds: 500),
+  })  : assert(minHeight == null || minHeight > 0),
         super(
-        value: value,
-        backgroundColor: backgroundColor,
-        color: color,
-        valueColor: valueColor,
-        semanticsLabel: semanticsLabel,
-        semanticsValue: semanticsValue,
-      );
-
-
+          value: value,
+          backgroundColor: backgroundColor,
+          color: color,
+          valueColor: valueColor,
+          semanticsLabel: semanticsLabel,
+          semanticsValue: semanticsValue,
+        );
 
   /// {@template flutter.material.LinearProgressIndicator.trackColor}
   /// Color of the track being filled by the linear indicator.
@@ -44,24 +42,23 @@ class AnimatedLinearProgressIndicator extends ProgressIndicator {
   /// {@endtemplate}
   final double? minHeight;
 
-
   /// The animation duration for the progress.
   /// If animationDuration is null then it will use the default Duration(milliseconds: 500).
   final Duration? animationDuration;
 
-
-
   @override
-  _AnimatedLinearProgressIndicatorState createState() => _AnimatedLinearProgressIndicatorState();
+  _AnimatedLinearProgressIndicatorState createState() =>
+      _AnimatedLinearProgressIndicatorState();
 }
 
-class _AnimatedLinearProgressIndicatorState extends State<AnimatedLinearProgressIndicator> with TickerProviderStateMixin  {
-
+class _AnimatedLinearProgressIndicatorState
+    extends State<AnimatedLinearProgressIndicator>
+    with TickerProviderStateMixin {
   AnimationController? _controller;
   Tween<double>? _tween;
   Animation<double>? _animation;
 
-  void _setControllers(){
+  void _setControllers() {
     _controller = AnimationController(
       duration: widget.animationDuration,
       vsync: this,
@@ -81,12 +78,12 @@ class _AnimatedLinearProgressIndicatorState extends State<AnimatedLinearProgress
     super.initState();
     _setControllers();
   }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         animation: _animation!,
-        builder: (context, child)
-        {
+        builder: (context, child) {
           return LinearProgressIndicator(
             key: widget.key,
             value: _animation?.value,
@@ -98,13 +95,12 @@ class _AnimatedLinearProgressIndicatorState extends State<AnimatedLinearProgress
             semanticsValue: widget.semanticsValue,
           );
         });
-
   }
 
   @override
   void didUpdateWidget(AnimatedLinearProgressIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if(oldWidget.animationDuration!=widget.animationDuration){
+    if (oldWidget.animationDuration != widget.animationDuration) {
       //print("duration is changed remaking the controller and tween");
       _setControllers();
     }
@@ -131,15 +127,15 @@ class AnimatedCircularProgressIndicator extends ProgressIndicator {
     String? semanticsLabel,
     this.strokeWidth = 4.0,
     String? semanticsValue,
-    this.animationDuration=const Duration(milliseconds: 500),
-  }) :super(
-    value: value,
-    backgroundColor: backgroundColor,
-    color: color,
-    valueColor: valueColor,
-    semanticsLabel: semanticsLabel,
-    semanticsValue: semanticsValue,
-  );
+    this.animationDuration = const Duration(milliseconds: 500),
+  }) : super(
+          value: value,
+          backgroundColor: backgroundColor,
+          color: color,
+          valueColor: valueColor,
+          semanticsLabel: semanticsLabel,
+          semanticsValue: semanticsValue,
+        );
 
   /// The animation duration for the progress.
   /// If animationDuration is null then it will use the default Duration(milliseconds: 500).
@@ -148,18 +144,19 @@ class AnimatedCircularProgressIndicator extends ProgressIndicator {
   /// The width of the line used to draw the circle.
   final double strokeWidth;
 
-
   @override
-  _AnimatedCircularProgressIndicatorState createState() => _AnimatedCircularProgressIndicatorState();
+  _AnimatedCircularProgressIndicatorState createState() =>
+      _AnimatedCircularProgressIndicatorState();
 }
 
-class _AnimatedCircularProgressIndicatorState extends State<AnimatedCircularProgressIndicator> with TickerProviderStateMixin  {
-
+class _AnimatedCircularProgressIndicatorState
+    extends State<AnimatedCircularProgressIndicator>
+    with TickerProviderStateMixin {
   AnimationController? _controller;
   Tween<double>? _tween;
   Animation<double>? _animation;
 
-  void _setControllers(){
+  void _setControllers() {
     _controller = AnimationController(
       duration: widget.animationDuration,
       vsync: this,
@@ -179,12 +176,12 @@ class _AnimatedCircularProgressIndicatorState extends State<AnimatedCircularProg
     super.initState();
     _setControllers();
   }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         animation: _animation!,
-        builder: (context, child)
-        {
+        builder: (context, child) {
           return CircularProgressIndicator(
             key: widget.key,
             value: _animation?.value,
@@ -196,13 +193,12 @@ class _AnimatedCircularProgressIndicatorState extends State<AnimatedCircularProg
             semanticsValue: widget.semanticsValue,
           );
         });
-
   }
 
   @override
   void didUpdateWidget(AnimatedCircularProgressIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if(oldWidget.animationDuration!=widget.animationDuration){
+    if (oldWidget.animationDuration != widget.animationDuration) {
       //print("duration is changed remaking the controller and tween");
       _setControllers();
     }
