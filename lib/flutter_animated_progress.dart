@@ -12,6 +12,7 @@ class AnimatedLinearProgressIndicator extends ProgressIndicator {
     String? semanticsLabel,
     String? semanticsValue,
     this.animationDuration = const Duration(milliseconds: 500),
+    this.goingBackAnimationDuration = const Duration(milliseconds: 100),
   })  : assert(minHeight == null || minHeight > 0),
         super(
           value: value,
@@ -46,6 +47,10 @@ class AnimatedLinearProgressIndicator extends ProgressIndicator {
   /// If animationDuration is null then it will use the default Duration(milliseconds: 500).
   final Duration? animationDuration;
 
+  /// The animation duration for the progress when going back.
+  /// If animationDuration is null then it will use the default Duration(milliseconds: 500).
+  final Duration? goingBackAnimationDuration;
+
   @override
   _AnimatedLinearProgressIndicatorState createState() =>
       _AnimatedLinearProgressIndicatorState();
@@ -55,20 +60,31 @@ class _AnimatedLinearProgressIndicatorState
     extends State<AnimatedLinearProgressIndicator>
     with TickerProviderStateMixin {
   AnimationController? _controller;
+  AnimationController? _goingBackController;
   Tween<double>? _tween;
   Animation<double>? _animation;
-
+  Animation<double>? _goingBackAnimation;
+  bool _goingBack=false;
   void _setControllers() {
     _controller = AnimationController(
       duration: widget.animationDuration,
       vsync: this,
     );
-
+    _goingBackController = AnimationController(
+      duration: widget.goingBackAnimationDuration,
+      vsync: this,
+    );
     _tween = Tween(begin: widget.value, end: widget.value);
     _animation = _tween?.animate(
       CurvedAnimation(
         curve: Curves.easeInOut,
         parent: _controller!,
+      ),
+    );
+    _goingBackAnimation = _tween?.animate(
+      CurvedAnimation(
+        curve: Curves.easeInOut,
+        parent: _goingBackController!,
       ),
     );
   }
@@ -82,11 +98,11 @@ class _AnimatedLinearProgressIndicatorState
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: _animation!,
+        animation: _goingBack?_goingBackAnimation!:_animation!,
         builder: (context, child) {
           return LinearProgressIndicator(
             key: widget.key,
-            value: _animation?.value,
+            value: _goingBack?_goingBackAnimation!.value:_animation!.value,
             backgroundColor: widget.backgroundColor,
             color: widget.color,
             valueColor: widget.valueColor,
@@ -105,10 +121,32 @@ class _AnimatedLinearProgressIndicatorState
       _setControllers();
     }
     //print(" old value ${_tween?.begin }  new value ${oldWidget.value},old end ${_tween?.end},animationValue ${_animation?.value}");
-    _tween?.begin = _animation?.value;
-    _controller?.reset();
-    _tween?.end = widget.value;
-    _controller?.forward();
+
+
+    //animation old value
+    double animationOldValue=0;
+    if(_goingBack){
+      animationOldValue=_goingBackAnimation!.value;
+    }else{
+      animationOldValue=_animation!.value;
+    }
+    if(_animation!.value>widget.value!){
+      _goingBack=true;
+      _tween?.begin = animationOldValue;
+      _controller?.reset();
+      _goingBackController?.reset();
+      _tween?.end = widget.value;
+      _goingBackController?.forward();
+    }else{
+      _goingBack=false;
+      _tween?.begin = animationOldValue;
+      _controller?.reset();
+      _goingBackController?.reset();
+      _tween?.end = widget.value;
+      _controller?.forward();
+    }
+
+
   }
 
   @override
@@ -128,6 +166,7 @@ class AnimatedCircularProgressIndicator extends ProgressIndicator {
     this.strokeWidth = 4.0,
     String? semanticsValue,
     this.animationDuration = const Duration(milliseconds: 500),
+    this.goingBackAnimationDuration = const Duration(milliseconds: 100),
   }) : super(
           value: value,
           backgroundColor: backgroundColor,
@@ -141,6 +180,10 @@ class AnimatedCircularProgressIndicator extends ProgressIndicator {
   /// If animationDuration is null then it will use the default Duration(milliseconds: 500).
   final Duration? animationDuration;
 
+  /// The animation duration for the progress when going back.
+  /// If animationDuration is null then it will use the default Duration(milliseconds: 500).
+  final Duration? goingBackAnimationDuration;
+
   /// The width of the line used to draw the circle.
   final double strokeWidth;
 
@@ -153,15 +196,20 @@ class _AnimatedCircularProgressIndicatorState
     extends State<AnimatedCircularProgressIndicator>
     with TickerProviderStateMixin {
   AnimationController? _controller;
+  AnimationController? _goingBackController;
   Tween<double>? _tween;
   Animation<double>? _animation;
-
+  Animation<double>? _goingBackAnimation;
+  bool _goingBack=false;
   void _setControllers() {
     _controller = AnimationController(
       duration: widget.animationDuration,
       vsync: this,
     );
-
+    _goingBackController = AnimationController(
+      duration: widget.goingBackAnimationDuration,
+      vsync: this,
+    );
     _tween = Tween(begin: widget.value, end: widget.value);
     _animation = _tween?.animate(
       CurvedAnimation(
@@ -169,26 +217,30 @@ class _AnimatedCircularProgressIndicatorState
         parent: _controller!,
       ),
     );
+    _goingBackAnimation = _tween?.animate(
+      CurvedAnimation(
+        curve: Curves.easeInOut,
+        parent: _goingBackController!,
+      ),
+    );
   }
-
   @override
   void initState() {
     super.initState();
     _setControllers();
   }
-
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: _animation!,
+        animation: _goingBack?_goingBackAnimation!:_animation!,
         builder: (context, child) {
           return CircularProgressIndicator(
             key: widget.key,
-            value: _animation?.value,
+            value: _goingBack?_goingBackAnimation!.value:_animation!.value,
             backgroundColor: widget.backgroundColor,
             color: widget.color,
-            strokeWidth: widget.strokeWidth,
             valueColor: widget.valueColor,
+            strokeWidth: widget.strokeWidth,
             semanticsLabel: widget.semanticsLabel,
             semanticsValue: widget.semanticsValue,
           );
@@ -203,10 +255,28 @@ class _AnimatedCircularProgressIndicatorState
       _setControllers();
     }
     //print(" old value ${_tween?.begin }  new value ${oldWidget.value},old end ${_tween?.end},animationValue ${_animation?.value}");
-    _tween?.begin = _animation?.value;
-    _controller?.reset();
-    _tween?.end = widget.value;
-    _controller?.forward();
+    //animation old value
+    double animationOldValue=0;
+    if(_goingBack){
+      animationOldValue=_goingBackAnimation!.value;
+    }else{
+      animationOldValue=_animation!.value;
+    }
+    if(_animation!.value>widget.value!){
+      _goingBack=true;
+      _tween?.begin = animationOldValue;
+      _controller?.reset();
+      _goingBackController?.reset();
+      _tween?.end = widget.value;
+      _goingBackController?.forward();
+    }else{
+      _goingBack=false;
+      _tween?.begin = animationOldValue;
+      _controller?.reset();
+      _goingBackController?.reset();
+      _tween?.end = widget.value;
+      _controller?.forward();
+    }
   }
 
   @override
