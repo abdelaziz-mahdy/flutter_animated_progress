@@ -121,17 +121,19 @@ class _AnimatedLinearProgressIndicatorState
   @override
   void didUpdateWidget(AnimatedLinearProgressIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if ((oldWidget.animationDuration != widget.animationDuration)||(oldWidget.goingBackAnimationDuration != widget.goingBackAnimationDuration)) {
+    if ((oldWidget.animationDuration != widget.animationDuration) ||
+        (oldWidget.goingBackAnimationDuration !=
+            widget.goingBackAnimationDuration) ||
+        (oldWidget.animationCurve != widget.animationCurve)) {
       //print("duration is changed remaking the controller and tween");
       _setControllers();
     }
     //print(" old value ${_tween?.begin }  new value ${oldWidget.value},old end ${_tween?.end},animationValue ${_animation?.value}");
 
-
     //animation old value
-    double animationOldValue=0;
-    if(_goingBack){
-      animationOldValue=_goingBackAnimation!.value;
+    double animationOldValue = 0;
+    if (_goingBack) {
+      animationOldValue = _goingBackAnimation!.value;
     }else{
       animationOldValue=_animation!.value;
     }
@@ -262,17 +264,20 @@ class _AnimatedCircularProgressIndicatorState
   @override
   void didUpdateWidget(AnimatedCircularProgressIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if ((oldWidget.animationDuration != widget.animationDuration)||(oldWidget.goingBackAnimationDuration != widget.goingBackAnimationDuration)) {
+    if ((oldWidget.animationDuration != widget.animationDuration) ||
+        (oldWidget.goingBackAnimationDuration !=
+            widget.goingBackAnimationDuration) ||
+        (oldWidget.animationCurve != widget.animationCurve)) {
       //print("duration is changed remaking the controller and tween");
       _setControllers();
     }
     //print(" old value ${_tween?.begin }  new value ${oldWidget.value},old end ${_tween?.end},animationValue ${_animation?.value}");
     //animation old value
-    double animationOldValue=0;
-    if(_goingBack){
-      animationOldValue=_goingBackAnimation!.value;
-    }else{
-      animationOldValue=_animation!.value;
+    double animationOldValue = 0;
+    if (_goingBack) {
+      animationOldValue = _goingBackAnimation!.value;
+    } else {
+      animationOldValue = _animation!.value;
     }
     if(_animation!.value>widget.value!){
       _goingBack=true;
