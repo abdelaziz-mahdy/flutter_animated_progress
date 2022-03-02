@@ -13,6 +13,7 @@ class AnimatedLinearProgressIndicator extends ProgressIndicator {
     String? semanticsValue,
     this.animationDuration = const Duration(milliseconds: 500),
     this.goingBackAnimationDuration = const Duration(milliseconds: 100),
+    this.animationCurve=Curves.easeInOut,
   })  : assert(minHeight == null || minHeight > 0),
         super(
           value: value,
@@ -48,9 +49,13 @@ class AnimatedLinearProgressIndicator extends ProgressIndicator {
   final Duration? animationDuration;
 
   /// The animation duration for the progress when going back.
-  /// If animationDuration is null then it will use the default Duration(milliseconds: 500).
+  /// If animationDuration is null then it will use the default Duration(milliseconds: 100).
   final Duration? goingBackAnimationDuration;
 
+
+  /// The animation Curve for the progress when going back.
+  /// If animationCurve is null then it will use the default Curves.easeInOut.
+  final Curve animationCurve;
   @override
   _AnimatedLinearProgressIndicatorState createState() =>
       _AnimatedLinearProgressIndicatorState();
@@ -77,13 +82,13 @@ class _AnimatedLinearProgressIndicatorState
     _tween = Tween(begin: widget.value, end: widget.value);
     _animation = _tween?.animate(
       CurvedAnimation(
-        curve: Curves.easeInOut,
+        curve: widget.animationCurve,
         parent: _controller!,
       ),
     );
     _goingBackAnimation = _tween?.animate(
       CurvedAnimation(
-        curve: Curves.easeInOut,
+        curve: widget.animationCurve,
         parent: _goingBackController!,
       ),
     );
@@ -116,7 +121,7 @@ class _AnimatedLinearProgressIndicatorState
   @override
   void didUpdateWidget(AnimatedLinearProgressIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.animationDuration != widget.animationDuration) {
+    if ((oldWidget.animationDuration != widget.animationDuration)||(oldWidget.goingBackAnimationDuration != widget.goingBackAnimationDuration)) {
       //print("duration is changed remaking the controller and tween");
       _setControllers();
     }
@@ -167,6 +172,7 @@ class AnimatedCircularProgressIndicator extends ProgressIndicator {
     String? semanticsValue,
     this.animationDuration = const Duration(milliseconds: 500),
     this.goingBackAnimationDuration = const Duration(milliseconds: 100),
+    this.animationCurve=Curves.easeInOut,
   }) : super(
           value: value,
           backgroundColor: backgroundColor,
@@ -176,6 +182,9 @@ class AnimatedCircularProgressIndicator extends ProgressIndicator {
           semanticsValue: semanticsValue,
         );
 
+  /// The width of the line used to draw the circle.
+  final double strokeWidth;
+
   /// The animation duration for the progress.
   /// If animationDuration is null then it will use the default Duration(milliseconds: 500).
   final Duration? animationDuration;
@@ -184,8 +193,11 @@ class AnimatedCircularProgressIndicator extends ProgressIndicator {
   /// If animationDuration is null then it will use the default Duration(milliseconds: 500).
   final Duration? goingBackAnimationDuration;
 
-  /// The width of the line used to draw the circle.
-  final double strokeWidth;
+  /// The animation Curve for the progress when going back.
+  /// If animationCurve is null then it will use the default Curves.easeInOut.
+  final Curve animationCurve;
+
+
 
   @override
   _AnimatedCircularProgressIndicatorState createState() =>
@@ -213,13 +225,13 @@ class _AnimatedCircularProgressIndicatorState
     _tween = Tween(begin: widget.value, end: widget.value);
     _animation = _tween?.animate(
       CurvedAnimation(
-        curve: Curves.easeInOut,
+        curve: widget.animationCurve,
         parent: _controller!,
       ),
     );
     _goingBackAnimation = _tween?.animate(
       CurvedAnimation(
-        curve: Curves.easeInOut,
+        curve: widget.animationCurve,
         parent: _goingBackController!,
       ),
     );
@@ -250,7 +262,7 @@ class _AnimatedCircularProgressIndicatorState
   @override
   void didUpdateWidget(AnimatedCircularProgressIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.animationDuration != widget.animationDuration) {
+    if ((oldWidget.animationDuration != widget.animationDuration)||(oldWidget.goingBackAnimationDuration != widget.goingBackAnimationDuration)) {
       //print("duration is changed remaking the controller and tween");
       _setControllers();
     }

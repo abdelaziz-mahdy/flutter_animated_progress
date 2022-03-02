@@ -1,3 +1,6 @@
+## 1.1.0
+* going back animation duration added
+* added animation curve parameter
 ## 1.1.0-dev.1
 * going back animation duration added
 ## 1.0.5
