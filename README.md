@@ -1,5 +1,7 @@
 # flutter_animated_progress_indicator
 
+Added animation to the increase and decrease of the flutter progress indicator
+
 example can be followed to to achieve same result
 
 
