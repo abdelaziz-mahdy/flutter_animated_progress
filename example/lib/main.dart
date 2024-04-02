@@ -22,14 +22,22 @@ class _MyAppState extends State<MyApp> {
     changeValue();
   }
 
-  changeValue() async {
-    await Future.delayed(
-        const Duration(seconds: 1), () => valueNotifier.value = 0);
-    await Future.delayed(
-        const Duration(seconds: 1), () => valueNotifier.value = 0.5);
-    await Future.delayed(
-        const Duration(seconds: 1), () => valueNotifier.value = 1);
-    changeValue();
+  Future<void> changeValue() async {
+    const values = [0.0, 0.5, 1.0]; // Define the sequence of values.
+    while (mounted) { // Check if the widget is still in the widget tree.
+      for (var value in values) {
+        await Future.delayed(const Duration(seconds: 1));
+        if (!mounted) return; // Exit if the widget is no longer in the tree.
+        valueNotifier.value = value;
+      }
+    }
+  }
+
+
+  @override
+  void dispose() {
+    valueNotifier.dispose();
+    super.dispose();
   }
 
   @override
@@ -41,7 +49,7 @@ class _MyAppState extends State<MyApp> {
           ),
           body: ValueListenableBuilder(
               valueListenable: valueNotifier,
-              builder: (context,double value, child) {
+              builder: (context, double value, child) {
                 return Column(
                   children: [
                     Expanded(
