@@ -1,3 +1,7 @@
+## 1.2.0+1
+* updated example.
+* added web demo.
+
 ## 1.2.0
 
 * when animation curve changed controllers will get updated
