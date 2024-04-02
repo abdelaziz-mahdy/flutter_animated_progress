@@ -10,5 +10,5 @@ example can be followed to to achieve same result
 
 # example
 
-[example](https://github.com/zezo357/flutter_animated_progress/tree/master/example)
+[example](https://github.com/abdelaziz-mahdy/flutter_animated_progress/tree/master/example)
 

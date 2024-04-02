@@ -1,10 +1,10 @@
 name: flutter_animated_progress
 description: a helper to make animated linear and circular progress indicator
-version: 1.2.0
-homepage: https://github.com/zezo357/flutter_animated_progress
+version: 1.2.0+1
+homepage: https://github.com/abdelaziz-mahdy/flutter_animated_progress
 
 environment:
-  sdk: ">=2.16.0 <3.0.0"
+  sdk: ">=2.16.0 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
