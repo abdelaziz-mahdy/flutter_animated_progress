@@ -56,7 +56,6 @@ class _MyAppState extends State<MyApp> {
                       child: Center(
                         child: AnimatedLinearProgressIndicator(
                           value: value,
-                          animationDuration: const Duration(seconds: 2),
                           minHeight: 7,
                           valueColor:
                               const AlwaysStoppedAnimation<Color>(Colors.red),
@@ -68,7 +67,6 @@ class _MyAppState extends State<MyApp> {
                       child: Center(
                         child: AnimatedCircularProgressIndicator(
                           value: value,
-                          animationDuration: const Duration(seconds: 2),
                           strokeWidth: 7,
                           valueColor:
                               const AlwaysStoppedAnimation<Color>(Colors.red),
