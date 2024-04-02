@@ -8,7 +8,9 @@ on:
 concurrency: 
   group: auto-deploy
   cancel-in-progress: true
-
+defaults:
+  run:
+    working-directory: example
 jobs:
   build_web:
     name: Build Flutter Web, Take Screenshots and Deploy
@@ -31,9 +33,6 @@ jobs:
         run: flutter pub get
 
         
-      - name: cd example
-        run: cd example
-
       - name: Build Flutter Web
         run: flutter build web --release --base-href "/flutter_animated_progress/" --web-renderer canvaskit
       # - name: Build Flutter Web wasm
