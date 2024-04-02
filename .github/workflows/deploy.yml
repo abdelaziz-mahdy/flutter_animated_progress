@@ -35,11 +35,12 @@ jobs:
         
       - name: Build Flutter Web
         run: flutter build web --release --base-href "/flutter_animated_progress/" --web-renderer canvaskit
-      # - name: Build Flutter Web wasm
-      #   run: flutter build web --wasm --release --base-href "/bouncy_ball_physics/" --web-renderer canvaskit
+
+      - name: list files
+        run: ls build/web
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web
-          # publish_dir: ./build/web_wasm
+          publish_dir: build/web
