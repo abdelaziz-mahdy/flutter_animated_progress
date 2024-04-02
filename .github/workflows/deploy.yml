@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get the branch name
-        run: echo "Current branch name is ${{ github.ref_name }}"
       - name: Checkout Code
         uses: actions/checkout@v2
+      - name: Get the branch name
+        run: echo "Current branch name is ${{ github.ref_name }}"
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
