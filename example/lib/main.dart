@@ -24,9 +24,12 @@ class _MyAppState extends State<MyApp> {
 
   changeValue() async {
     await Future.delayed(
+        const Duration(seconds: 1), () => valueNotifier.value = 0);
+    await Future.delayed(
         const Duration(seconds: 1), () => valueNotifier.value = 0.5);
     await Future.delayed(
         const Duration(seconds: 1), () => valueNotifier.value = 1);
+    changeValue();
   }
 
   @override
