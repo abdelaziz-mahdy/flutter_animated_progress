@@ -1,6 +1,7 @@
-## 1.2.0+1
+## 1.2.1
 * updated example.
 * added web demo.
+* fix missing key in widgets 
 
 ## 1.2.0
 
