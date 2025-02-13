@@ -31,7 +31,7 @@ class AnimatedLinearProgressIndicator extends ProgressIndicator {
   ///
   /// If [AnimatedLinearProgressIndicator.backgroundColor] is null then the
   /// ambient [AnimatedLinearProgressIndicator.linearTrackColor] will be used.
-  /// If that is null, then the ambient theme's [ColorScheme.background]
+  /// If that is null, then the ambient theme's [ColorScheme.surface]
   /// will be used to draw the track.
   /// {@endtemplate}
   @override
@@ -82,10 +82,7 @@ class _AnimatedLinearProgressIndicatorState
     );
     _tween = Tween(begin: widget.value, end: widget.value);
     _animation = _tween?.animate(
-      CurvedAnimation(
-        curve: widget.animationCurve,
-        parent: _controller!,
-      ),
+      CurvedAnimation(curve: widget.animationCurve, parent: _controller!),
     );
     _goingBackAnimation = _tween?.animate(
       CurvedAnimation(
@@ -104,19 +101,20 @@ class _AnimatedLinearProgressIndicatorState
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: _goingBack ? _goingBackAnimation! : _animation!,
-        builder: (context, child) {
-          return LinearProgressIndicator(
-            key: widget.key,
-            value: _goingBack ? _goingBackAnimation!.value : _animation!.value,
-            backgroundColor: widget.backgroundColor,
-            color: widget.color,
-            valueColor: widget.valueColor,
-            minHeight: widget.minHeight,
-            semanticsLabel: widget.semanticsLabel,
-            semanticsValue: widget.semanticsValue,
-          );
-        });
+      animation: _goingBack ? _goingBackAnimation! : _animation!,
+      builder: (context, child) {
+        return LinearProgressIndicator(
+          key: widget.key,
+          value: _goingBack ? _goingBackAnimation!.value : _animation!.value,
+          backgroundColor: widget.backgroundColor,
+          color: widget.color,
+          valueColor: widget.valueColor,
+          minHeight: widget.minHeight,
+          semanticsLabel: widget.semanticsLabel,
+          semanticsValue: widget.semanticsValue,
+        );
+      },
+    );
   }
 
   @override
@@ -225,10 +223,7 @@ class _AnimatedCircularProgressIndicatorState
     );
     _tween = Tween(begin: widget.value, end: widget.value);
     _animation = _tween?.animate(
-      CurvedAnimation(
-        curve: widget.animationCurve,
-        parent: _controller!,
-      ),
+      CurvedAnimation(curve: widget.animationCurve, parent: _controller!),
     );
     _goingBackAnimation = _tween?.animate(
       CurvedAnimation(
@@ -247,19 +242,20 @@ class _AnimatedCircularProgressIndicatorState
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: _goingBack ? _goingBackAnimation! : _animation!,
-        builder: (context, child) {
-          return CircularProgressIndicator(
-            key: widget.key,
-            value: _goingBack ? _goingBackAnimation!.value : _animation!.value,
-            backgroundColor: widget.backgroundColor,
-            color: widget.color,
-            valueColor: widget.valueColor,
-            strokeWidth: widget.strokeWidth,
-            semanticsLabel: widget.semanticsLabel,
-            semanticsValue: widget.semanticsValue,
-          );
-        });
+      animation: _goingBack ? _goingBackAnimation! : _animation!,
+      builder: (context, child) {
+        return CircularProgressIndicator(
+          key: widget.key,
+          value: _goingBack ? _goingBackAnimation!.value : _animation!.value,
+          backgroundColor: widget.backgroundColor,
+          color: widget.color,
+          valueColor: widget.valueColor,
+          strokeWidth: widget.strokeWidth,
+          semanticsLabel: widget.semanticsLabel,
+          semanticsValue: widget.semanticsValue,
+        );
+      },
+    );
   }
 
   @override
