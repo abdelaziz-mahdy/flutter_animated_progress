@@ -24,7 +24,8 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> changeValue() async {
     const values = [0.0, 0.5, 1.0]; // Define the sequence of values.
-    while (mounted) { // Check if the widget is still in the widget tree.
+    while (mounted) {
+      // Check if the widget is still in the widget tree.
       for (var value in values) {
         await Future.delayed(const Duration(seconds: 1));
         if (!mounted) return; // Exit if the widget is no longer in the tree.
@@ -32,7 +33,6 @@ class _MyAppState extends State<MyApp> {
       }
     }
   }
-
 
   @override
   void dispose() {
@@ -44,39 +44,41 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Plugin example app'),
-          ),
-          body: ValueListenableBuilder(
-              valueListenable: valueNotifier,
-              builder: (context, double value, child) {
-                return Column(
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: AnimatedLinearProgressIndicator(
-                          value: value,
-                          minHeight: 7,
-                          valueColor:
-                              const AlwaysStoppedAnimation<Color>(Colors.red),
-                          backgroundColor: Colors.grey[800],
-                        ),
+        appBar: AppBar(title: const Text('Plugin example app')),
+        body: ValueListenableBuilder(
+          valueListenable: valueNotifier,
+          builder: (context, double value, child) {
+            return Column(
+              children: [
+                Expanded(
+                  child: Center(
+                    child: AnimatedLinearProgressIndicator(
+                      value: value,
+                      minHeight: 7,
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        Colors.red,
                       ),
+                      backgroundColor: Colors.grey[800],
                     ),
-                    Expanded(
-                      child: Center(
-                        child: AnimatedCircularProgressIndicator(
-                          value: value,
-                          strokeWidth: 7,
-                          valueColor:
-                              const AlwaysStoppedAnimation<Color>(Colors.red),
-                          backgroundColor: Colors.grey[800],
-                        ),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: AnimatedCircularProgressIndicator(
+                      value: value,
+                      strokeWidth: 7,
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        Colors.red,
                       ),
+                      backgroundColor: Colors.grey[800],
                     ),
-                  ],
-                );
-              })),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 }
